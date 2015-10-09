@@ -95,7 +95,26 @@ float4 PS(vs2ps In): COLOR
 
 technique TStarShader
 {
-    pass P0
+	pass P0
+    {
+        VertexShader = compile vs_1_0 VS();
+        PixelShader  = compile ps_2_0 PS();
+    	
+    	PointSpriteEnable = true;
+    	PointScaleEnable = true;
+    	FillMode = POINT;
+    	
+        AlphaBlendEnable = false;
+        AlphaTestEnable = true;
+        AlphaFunc = Greater;
+        AlphaRef = 245;
+ 
+        ZEnable = true;
+        ZWriteEnable = true;
+ 
+        CullMode = None;
+    }
+    pass P1
     {
         VertexShader = compile vs_1_0 VS();
         PixelShader  = compile ps_2_0 PS();
