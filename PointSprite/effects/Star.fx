@@ -17,6 +17,9 @@ float4 color:COLOR <string uiname="Color";>;
 float range <string uiname="Range";> = 1.0f;
 float height <string uiname="Screen Height";> = 100.0f;
 float size <string uiname="Point Size";> = 1.0f;
+float rotation <string uiname="Rotation";> = 0.0f;
+
+static float PI = 3.1415f;
 
 //texture
 texture Tex <string uiname="Texture";>;
@@ -26,6 +29,8 @@ sampler Samp = sampler_state    //sampler for doing the texture-lookup
     MipFilter = LINEAR;         //sampler states
     MinFilter = LINEAR;
     MagFilter = LINEAR;
+	AddressU = CLAMP;
+	AddressV = CLAMP;
 };
 
 //texture transformation marked with semantic TEXTUREMATRIX to achieve symmetric transformations
@@ -70,7 +75,16 @@ vs2ps VS(
 
 float4 PS(vs2ps In): COLOR
 {
-    float4 col = tex2D(Samp, In.TexCd);
+	float2 texCd = In.TexCd;
+	float2 rotTexCd = texCd;
+	texCd -= 0.5f;
+	float r = 2 * PI * rotation;
+	float s = sin(r);
+	float c = cos(r);
+	rotTexCd.x = (texCd.x*c) + (texCd.y*(-s));
+	rotTexCd.y = (texCd.x*s) + (texCd.y*c);
+	rotTexCd += 0.5f;
+    float4 col = tex2D(Samp, rotTexCd);
 	col *= color;
     return col;
 }
