@@ -49,7 +49,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="1620" top="10275" width="2400" height="1800">
    </BOUNDS>
-   <BOUNDS type="Window" left="20925" top="-180" width="6840" height="6090">
+   <BOUNDS type="Window" left="17175" top="-180" width="10590" height="9390">
    </BOUNDS>
    <PIN pinname="Fullscreen Depthbuffer Format" slicecount="1" values="D24X8">
    </PIN>
